@@ -65,3 +65,34 @@ void minHeapify(struct MinHeap* minHeap, int idx) {
         minHeapify(minHeap, smallest);
     }
 }
+
+// Standard function to extract minimum value node from heap
+struct MinHeapNode* extractMin(struct MinHeap* minHeap) {
+    struct MinHeapNode* temp = minHeap->array[0];
+    minHeap->array[0] = minHeap->array[minHeap->size - 1];
+    --minHeap->size;
+    minHeapify(minHeap, 0);
+
+    return temp;
+}
+
+// Utility function to insert a new node to Min Heap
+void insertMinHeap(struct MinHeap* minHeap, struct MinHeapNode* minHeapNode) {
+    ++minHeap->size;
+    int i = minHeap->size - 1;
+
+    while (i && minHeapNode->freq < minHeap->array[(i - 1) / 2]->freq) {
+        minHeap->array[i] = minHeap->array[(i - 1) / 2];
+        i = (i - 1) / 2;
+    }
+    minHeap->array[i] = minHeapNode;
+}
+
+// A standard function to build min heap
+void buildMinHeap(struct MinHeap* minHeap) {
+    int n = minHeap->size - 1;
+    int i;
+
+    for (i = (n - 1) / 2; i >= 0; --i)
+        minHeapify(minHeap, i);
+}
