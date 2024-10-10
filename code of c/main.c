@@ -47,7 +47,6 @@ void swapMinHeapNode(struct MinHeapNode** a, struct MinHeapNode** b) {
     *b = t;
 }
 
-
 // The standard minHeapify function
 void minHeapify(struct MinHeap* minHeap, int idx) {
     int smallest = idx;
@@ -96,3 +95,28 @@ void buildMinHeap(struct MinHeap* minHeap) {
     for (i = (n - 1) / 2; i >= 0; --i)
         minHeapify(minHeap, i);
 }
+
+// Utility function to check if size of heap is 1
+int isSizeOne(struct MinHeap* minHeap) {
+    return (minHeap->size == 1);
+}
+
+// Utility function to create a min heap of capacity equal to size and insert all character of data[] in min heap. Initially size of min heap is equal to capacity
+struct MinHeap* createAndBuildMinHeap(char data[], int freq[], int size) {
+    struct MinHeap* minHeap = createMinHeap(size);
+
+    for (int i = 0; i < size; ++i)
+        minHeap->array[i] = newNode(data[i], freq[i]);
+
+    minHeap->size = size;
+    buildMinHeap(minHeap);
+
+    return minHeap;
+}
+
+// The main function that builds Huffman tree
+struct MinHeapNode* buildHuffmanTree(char data[], int freq[], int size) {
+    struct MinHeapNode *left, *right, *top;
+
+    // Step 1: Create a min heap of capacity equal to size. Initially, there are nodes equal to size.
+    struct MinHeap* minHeap = createAndBuildMinHeap(data, freq, size);
