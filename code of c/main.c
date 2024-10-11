@@ -135,3 +135,29 @@ struct MinHeapNode* buildHuffmanTree(char data[], int freq[], int size) {
 
     return extractMin(minHeap);
 }
+
+// Utility function to print an array of size n
+void printArr(int arr[], int n) {
+    for (int i = 0; i < n; ++i)
+        printf("%d", arr[i]);
+
+    printf("\n");
+}
+
+// Function to print huffman codes from the root of Huffman Tree. It uses arr[] to store codes
+void printCodes(struct MinHeapNode* root, int arr[], int top) {
+    if (root->left) {
+        arr[top] = 0;
+        printCodes(root->left, arr, top + 1);
+    }
+
+    if (root->right) {
+        arr[top] = 1;
+        printCodes(root->right, arr, top + 1);
+    }
+
+    if (!(root->left) && !(root->right)) {
+        printf("%c: ", root->data);
+        printArr(arr, top);
+    }
+}
