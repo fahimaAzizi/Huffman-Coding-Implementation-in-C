@@ -161,3 +161,21 @@ void printCodes(struct MinHeapNode* root, int arr[], int top) {
         printArr(arr, top);
     }
 }
+
+// The main function that builds a Huffman Tree and print codes by traversing the built Huffman Tree
+void HuffmanCodes(char data[], int freq[], int size) {
+    struct MinHeapNode* root = buildHuffmanTree(data, freq, size);
+    int arr[MAX_TREE_HT], top = 0;
+    printCodes(root, arr, top);
+}
+
+// Main driver program
+int main() {
+    char arr[] = { 'a', 'b', 'c', 'd', 'e', 'f' };
+    int freq[] = { 5, 9, 12, 13, 16, 45 };
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    HuffmanCodes(arr, freq, size);
+
+    return 0;
+}
